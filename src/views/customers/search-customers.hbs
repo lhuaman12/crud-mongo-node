@@ -1,0 +1,59 @@
+<div class="container -md">
+    <form action='/customers/submit-search' method="post">
+        <div class="row">
+            <div class="col form-group">
+                <label for="name">Nombre</label>
+                <input type="text" class="form-control" name="name">
+            </div>
+            <div class="col form-group">
+                <label for="name">Apellido</label>
+                <input type="text" class="form-control" name="lastname">
+            </div>
+
+        </div>
+        <hr class="my-4">
+        <div class="row">
+            <div class="col form-group">
+                <label for="adress">Direccion</label>
+                <input type="text" class="form-control" name="adress" id="adress">
+            </div>
+            <div class="col form-group">
+                <label for="city">Localidad</label>
+                <input type="text" class="form-control" name="city" id="city">
+            </div>
+        </div>
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <label for="productBrand">Marca</label>
+                <input type="text" class="form-control" name="productBrand" id="brand">
+            </div>
+            <div class="col">
+                <label for="productModel">Modelo</label>
+                <input type="text" class="form-control" name="productModel" id="productModel">
+            </div>
+        </div>
+        <hr class="my-4">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="status" id="option1" value="in revision">
+            <label class="form-check-label" for="option1">
+                En revision
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="status" id="option2" value="repaired">
+            <label class="form-check-label" for="option2">
+                Reparado
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="status" id="option3" value="Something">
+            <label class="form-check-label" for="exampleRadios3">
+                Consulta
+            </label>
+        </div>
+        <hr class="my-4">
+        <button type="submit" class="btn btn-primary btn-lg">Buscar</button>
+        <a href="/" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Atras</a>
+    </form>
+</div>
