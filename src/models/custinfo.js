@@ -7,7 +7,7 @@ const Custschema= new Schema ({
     lastname:{type:String,required:true},
     adress:{type:String,required:true},
     city :{type:String,required:true},
-    phoneNumber:{type:Number,required:true},
+    phoneNumber:{type:String,required:true},
     productBrand:{type:String,required:true},
     productModel:{type:String,required:true},
     status : {type:String,required:true},

@@ -5,11 +5,12 @@ const exphbs=require('express-handlebars');
 const Handlebars = require('handlebars')
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const morgan = require('morgan');
+const methodOverride=require('method-override');
 //
 require('./database');
 
 /// configs
-app.set('port',80);
+app.set('port',3000);
 app.set('views',path.join(__dirname,'views'));
 app.engine('.hbs',exphbs({
     handlebars: allowInsecurePrototypeAccess(Handlebars),
@@ -25,6 +26,7 @@ app.set('view engine','.hbs');
 app.use(express.static(path.join(__dirname,'public')));
 
 //middlewares
+app.use(methodOverride('_method'));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(morgan('dev'));
