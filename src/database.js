@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/clients-app',{
+mongoose.connect('mongodb+srv://sertec:gaQHYeY3txtyt6Gw@cluster0.42ewj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{
     useCreateIndex:true,
     useNewUrlParser:true,
     useFindAndModify:false,
