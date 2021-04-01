@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://sertec:33XLuxPlKVlBYV5E@cluster0.42ewj.mongodb.net/sertec-database?retryWrites=true&w=majority',{
+mongoose.connect('mongodb+srv://sertec:Futbol12@cluster0.42ewj.mongodb.net/sertec-database?retryWrites=true&w=majority',{
     useCreateIndex:true,
     useNewUrlParser:true,
     useFindAndModify:false,
