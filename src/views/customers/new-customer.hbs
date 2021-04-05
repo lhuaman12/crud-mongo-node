@@ -1,6 +1,6 @@
 {{#if errors}}
 <div class="container -md">
-    <form action='/customers/submit-client' method="post">
+    <form action='/customers/submit-client' method="post" id="clienForm">
         <div class="row">
             <div class="col form-group">
                 <label for="name">Nombre</label>
@@ -8,11 +8,11 @@
             </div>
             <div class="col form-group">
                 <label for="name">Apellido</label>
-            <input type="text" class="form-control" name="lastname" value="{{lastname}}">
+                <input type="text" class="form-control" name="lastname" value="{{lastname}}">
             </div>
 
         </div>
-        <hr class="my-4">
+        <hr class="my-3">
         <div class="row">
             <div class="col form-group">
                 <label for="adress">Direccion</label>
@@ -20,17 +20,17 @@
             </div>
             <div class="col form-group">
                 <label for="city">Localidad</label>
-            <input type="text" class="form-control" name="city" id="city" value="city">
+                <input type="text" class="form-control" name="city" id="city" value="city">
             </div>
         </div>
-        <hr class="my-4">
+        <hr class="my-3">
         <div class="row">
             <div class="col-6">
                 <label for="phone">Telefono</label>
                 <input type="text" class="form-control" name="phoneNumber" id="phone" value="{{phoneNumber}}">
             </div>
         </div>
-        <hr class="my-4">
+        <hr class="my-3">
         <div class="row">
             <div class="col">
                 <label for="productBrand">Marca</label>
@@ -41,7 +41,7 @@
                 <input type="text" class="form-control" name="productModel" id="productModel" value="{{productModel}}">
             </div>
         </div>
-        <hr class="my-4">
+        <hr class="my-3">
         <div class="form-check">
             <input class="form-check-input" type="radio" name="status" id="option1" value="in revision" checked>
             <label class="form-check-label" for="option1">
@@ -55,27 +55,27 @@
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="status" id="option3" value="Something">
+            <input class="form-check-input" type="radio" name="status" id="option3" value="consult">
             <label class="form-check-label" for="exampleRadios3">
                 Consulta
             </label>
         </div>
-        <hr class="my-4">
+        <input type="hidden" id="repairedDate" name="repairedDate" disabled>
+        <hr class="my-3">
         <div class="form-group">
             <label for="obs">Comentarios</label>
             <textarea class="form-control" name="commentary" id="obs" rows="3">{{commentary}}</textarea>
         </div>
-        <hr class="my-4">
+        <hr class="my-3">
         <button type="submit" class="btn btn-primary btn-lg">Agregar</button>
         <a href="/" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Atras</a>
     </form>
 </div>
 
-
 {{else}}
 <!--MODIFICAR ESTO NO ME GUSTA REPETIR CODIGO SOLO PARA TENER LOS CAMPOS RELLENADOS DE NUEVO-->
 <div class="container -md">
-    <form action='/customers/submit-client' method="post">
+    <form action='/customers/submit-client' method="post" id="clientForm">
         <div class="row">
             <div class="col form-group">
                 <label for="name">Nombre</label>
@@ -87,7 +87,7 @@
             </div>
 
         </div>
-        <hr class="my-4">
+        <hr class="my-3">
         <div class="row">
             <div class="col form-group">
                 <label for="adress">Direccion</label>
@@ -98,14 +98,14 @@
                 <input type="text" class="form-control" name="city" id="city">
             </div>
         </div>
-        <hr class="my-4">
+        <hr class="my-3">
         <div class="row">
             <div class="col-6">
                 <label for="phone">Telefono</label>
                 <input type="text" class="form-control" name="phoneNumber" id=phone>
             </div>
         </div>
-        <hr class="my-4">
+        <hr class="my-3">
         <div class="row">
             <div class="col">
                 <label for="productBrand">Marca</label>
@@ -116,7 +116,7 @@
                 <input type="text" class="form-control" name="productModel" id="productModel">
             </div>
         </div>
-        <hr class="my-4">
+        <hr class="my-3">
         <div class="form-check">
             <input class="form-check-input" type="radio" name="status" id="option1" value="in revision" checked>
             <label class="form-check-label" for="option1">
@@ -130,30 +130,54 @@
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="status" id="option3" value="Something">
-            <label class="form-check-label" for="exampleRadios3">
+            <input class="form-check-input" type="radio" name="status" id="option3" value="consult">
+            <label class="form-check-label" for="option3">
                 Consulta
             </label>
         </div>
-        <hr class="my-4">
+        <input type="hidden" id="repairedDate" name="repairedDate" disabled>
+        <!--value="undefined" -->
+        <hr class="my-3">
         <div class="form-group">
             <label for="obs">Comentarios</label>
             <textarea class="form-control" name="commentary" id="obs" rows="3"></textarea>
         </div>
-        <hr class="my-4">
-        <button type="submit" class="btn btn-primary btn-lg">Agregar</button>
-        <a href="/" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Atras</a>
+        <hr class="my-3">
+        <div class="container my-2">
+            <button type="submit" class="btn btn-primary btn-lg">Agregar</button>
+            <a href="/" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Atras</a>
+        </div>
     </form>
 </div>
-
 {{/if}}
 
-{{#each errors}}
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-    {{text}}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
+<script>
+    var repairedOption = document.getElementById('option2');
+    var consult = document.getElementById('option3');
+    var inRevision = document.getElementById('option1');
+    var repairedDate = document.getElementById('repairedDate');
 
-{{/each}}
+    repairedOption.addEventListener('click', () => {
+        repairedDate.disabled = false;
+        repairedDate.type = 'date';
+    });
+    consult.addEventListener('click', () => {
+        repairedDate.type = 'hidden';
+        repairedDate.disabled = true;
+    });
+    inRevision.addEventListener('click', () => {
+        repairedDate.type = 'hidden';
+        repairedDate.disabled = true;
+    });
+
+</script>
+<div class="fixed-bottom">
+    {{#each errors}}
+    <div class="alert alert-warning alert-dismissible fade show " role="alert">
+        {{text}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {{/each}}
+</div>

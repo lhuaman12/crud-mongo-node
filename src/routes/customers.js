@@ -2,12 +2,15 @@ const express = require('express');
 const { isValidObjectId } = require('mongoose');
 const { db } = require('../models/custinfo');
 const router = express.Router();
-
+const stringControls = require('../helpers/functions');
 const Customer = require('../models/custinfo');
 
 router.get('/customers', async (req, res) => {
-    const data = await Customer.find();
-    res.render('customers/customers-list', { data });
+    let search = await Customer.find();
+    //console.log(search);
+    search = stringControls.capitalizeObjects(search);
+    // console.log(search);
+    res.render('customers/customers-list', { search });
 });
 
 router.get('/customers/new-customer', (req, res) => {
@@ -16,7 +19,7 @@ router.get('/customers/new-customer', (req, res) => {
 
 router.post('/customers/submit-client', async (req, res) => {
     let errors = [];
-    const { name, lastname, adress, city, phoneNumber, productBrand, productModel, status, commentary } = req.body;
+    const { name, lastname, adress, city, phoneNumber, productBrand, productModel, status, commentary, repairedDate } = req.body;
     console.log(req.body);
     if (!name)
         errors.push({ text: "Escriba un nombre" });
@@ -33,8 +36,9 @@ router.post('/customers/submit-client', async (req, res) => {
         errors.push({ text: "Escriba la marca del producto" });
     if (!productModel)
         errors.push({ text: "Escriba el modelo del producto" });
-    if (!status)
-        errors.push({ text: "Escriba un estado" });
+    if (status == "repaired" && repairedDate == '')
+        errors.push({ text: 'Elija una fecha de reparacion' })
+
 
     if (errors.length > 0)
         res.render('customers/new-customer', {
@@ -51,10 +55,11 @@ router.post('/customers/submit-client', async (req, res) => {
 
         });
     else {
-        const newCustomer = new Customer({ name, lastname, adress, city, phoneNumber, productBrand, productModel, status, commentary });
+        let newCustomer = new Customer({ name, lastname, adress, city, phoneNumber, productBrand, productModel, status, commentary, repairedDate });
+        newCustomer = stringControls.normalizeObject(newCustomer);
+        //console.log(newCustomer);
         await newCustomer.save();
-        console.log(newCustomer);
-        res.redirect('/customers');
+        res.redirect('/');
     }
 });
 
@@ -63,37 +68,31 @@ router.get('/customers/search-customers', (req, res) => {
 });
 
 router.post('/customers/submit-search', async (req, res) => {
-    let data = req.body // TODO: borrar entries con '' para buscar en base de datos
-    //let result =Object.entries(data).reduce((a,[k,v]) => (v ? (a[k]=v, a) : a), {});
-    for (const key in data) {
-        if (data[key] == '')
-            delete data[key];
-    }
-    const search = await Customer.find(data);
-    console.log(search);
+    req.body=stringControls.deleteBlankSpaces(req.body);
+    let search = await Customer.find(req.body);
+    search = stringControls.capitalizeObjects(search);
     res.render('customers/result-search', { search });
 
 });
 
 router.get('/customers/edit-customer/:id', async (req, res) => {
-    console.log(req.params.id);
-    const value = await Customer.findById(req.params.id);
-    console.log(value);
+    let value = await Customer.findById(req.params.id);
+    value=stringControls.capitalizeObjects(value);
     res.render('customers/edit-customer', { value });
-
 });
 
 
 router.put('/customers/edit/:id', async (req, res) => {
-    const value = req.body;
-    await Customer.findByIdAndUpdate(req.params.id, value);
+    let newValue = req.body;
+    newValue = stringControls.normalizeObject(newValue);
+    await Customer.findByIdAndUpdate(req.params.id, newValue);
     res.redirect('/')
 });
 
 router.delete('/customers/delete-customer/:id', async (req, res) => {
 
     await Customer.findByIdAndDelete(req.params.id);
-    res.send('ok');
+    res.redirect('/');
 });
 
 module.exports = router;

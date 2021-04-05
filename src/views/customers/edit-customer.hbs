@@ -55,11 +55,12 @@
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="status" id="option3" value="Something">
+            <input class="form-check-input" type="radio" name="status" id="option3" value="consult">
             <label class="form-check-label" for="exampleRadios3">
                 Consulta
             </label>
         </div>
+        <input type="hidden" id="repairedDate" name="repairedDate" disabled>
         <hr class="my-4">
         <div class="form-group">
             <label for="obs">Comentarios</label>
@@ -70,3 +71,23 @@
         <a href="/" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Atras</a>
     </form>
 </div>
+<script>
+    var repairedOption = document.getElementById('option2');
+    var consult = document.getElementById('option3');
+    var inRevision = document.getElementById('option1');
+    var repairedDate = document.getElementById('repairedDate');
+
+    repairedOption.addEventListener('click', () => {
+        repairedDate.disabled = false;
+        repairedDate.type = 'date';
+    });
+    consult.addEventListener('click', () => {
+        repairedDate.type = 'hidden';
+        repairedDate.disabled = true;
+    });
+    inRevision.addEventListener('click', () => {
+        repairedDate.type = 'hidden';
+        repairedDate.disabled = true;
+    });
+
+</script>

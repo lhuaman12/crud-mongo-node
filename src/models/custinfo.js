@@ -7,6 +7,7 @@ const Custschema= new Schema ({
     lastname:{type:String,required:true},
     adress:{type:String,required:true},
     city :{type:String,required:true},
+    repairedDate : {type:Date,default:undefined},
     phoneNumber:{type:String,required:true},
     productBrand:{type:String,required:true},
     productModel:{type:String,required:true},

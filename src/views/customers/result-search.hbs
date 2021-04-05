@@ -14,7 +14,7 @@
     <div class="container">
         <form method="POST" action="/customers/delete-customer/{{_id}}?_method=DELETE">
             <input type="hidden" name="_method" value="DELETE">
-            <button type="submit" class="btn btn-danger btn-lg">Eliminar</button>
+            <button type="submit" class="btn btn-danger btn-lg" id="deleteButton" onclick="return confirm('Estas seguro de borrar el cliente?')">Eliminar</button>
         
             <button type="button" class="btn btn-secondary btn-lg"><a href="/customers/edit-customer/{{_id}}">Editar cliente</a></button>
         
@@ -27,4 +27,5 @@
 {{#if search}}
 <a href="/customers/search-customers" class="btn btn-secondary btn-lg active" role="button"
     aria-pressed="true">Atras</a>
+
 {{/if}}
