@@ -69,6 +69,7 @@ router.get('/customers/search-customers', (req, res) => {
 
 router.post('/customers/submit-search', async (req, res) => {
     req.body=stringControls.deleteBlankSpaces(req.body);
+    req.body=stringControls.normalizeObject(req.body);
     let search = await Customer.find(req.body);
     search = stringControls.capitalizeObjects(search);
     res.render('customers/result-search', { search });
