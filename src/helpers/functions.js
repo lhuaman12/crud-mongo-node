@@ -4,7 +4,7 @@ stringControls.capitalizeObjects = function (stringObjects) { // takes an object
     if (Array.isArray(stringObjects)) {
         result = stringObjects.map(value => {
             for (const key in value) {
-                if (typeof (value[key]) == "string")
+                if (typeof (value[key]) == "string" && value[key].lenght>0)
                     value[key] = value[key][0].toUpperCase() + value[key].substring(1);
             }
             return value;
