@@ -1,93 +1,45 @@
-<div class="container -md">
-    <form action="/customers/edit/{{value._id}}?_method=PUT" method="POST">
-    
-        <div class="row">
-            <div class="col form-group">
-                <label for="name">Nombre</label>
-                <input type="text" class="form-control" name="name" value="{{value.name}}">
-            </div>
-            <div class="col form-group">
-                <label for="name">Apellido</label>
-                <input type="text" class="form-control" name="lastname" value="{{value.lastname}}">
-            </div>
+{{#with value}}
+<div class="container">
+    <div class="col">
+        <div class="card ">
+            <div class="card-body font-weight-bolder">
+                <h2 class="card-title text-center">Editar cliente</h2>
+                <form action="/customers/edit/{{_id}}?_method=PUT" method="POST">
+                    <input type="hidden" name="_method" value="PUT">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" name="name" id="name" value="{{name}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Apellido</label>
+                        <input type="text" class="form-control" name="lastname" id="lastname" value="{{lastname}}">
+                    </div>
 
-        </div>
-        <hr class="my-4">
-        <div class="row">
-            <div class="col form-group">
-                <label for="adress">Direccion</label>
-                <input type="text" class="form-control" name="adress" id="adress" value="{{value.adress}}">
-            </div>
-            <div class="col form-group">
-                <label for="city">Localidad</label>
-                <input type="text" class="form-control" name="city" id="city" value="{{value.city}}">
-            </div>
-        </div>
-        <hr class="my-4">
-        <div class="row">
-            <div class="col-6">
-                <label for="phone">Telefono</label>
-                <input type="text" class="form-control" name="phoneNumber" id=phone value="{{value.phoneNumber}}">
-            </div>
-        </div>
-        <hr class="my-4">
-        <div class="row">
-            <div class="col">
-                <label for="productBrand">Marca</label>
-                <input type="text" class="form-control" name="productBrand" id="brand" value="{{value.productBrand}}">
-            </div>
-            <div class="col">
-                <label for="productModel">Modelo</label>
-                <input type="text" class="form-control" name="productModel" id="productModel" value="{{value.productModel}}">
+                    <div class="form-group">
+                        <label for="adress">Direccion</label>
+                        <input type="text" class="form-control" name="adress" id="adress" value="{{adress}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="locality">Localidad</label>
+                        <input type="text" class="form-control" name="locality" id="locality" value="{{locality}}">
+                    </div>
+
+                    <div class="form group">
+                        <label for="phone">Telefono</label>
+                        <input type="text" class="form-control" name="phoneNumber" id="phone" value="{{phoneNumber}}">
+                    </div>
+                    <hr class="my-3">
+                    <div class="form-group">
+                        <label for="obs">Comentarios</label>
+                        <textarea class="form-control" name="commentary" id="obs" rows="3">{{commentary}}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+                    <a href="javascript:history.back()" class="btn btn-primary btn-lg active"
+                        role="button" aria-pressed="true">Atras</a>
+
+                </form>
             </div>
         </div>
-        <hr class="my-4">
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="status" id="option1" value="in revision">
-            <label class="form-check-label" for="option1">
-                En revision
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="status" id="option2" value="repaired">
-            <label class="form-check-label" for="option2">
-                Reparado
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="status" id="option3" value="consult">
-            <label class="form-check-label" for="exampleRadios3">
-                Consulta
-            </label>
-        </div>
-        <input type="hidden" id="repairedDate" name="repairedDate" disabled>
-        <hr class="my-4">
-        <div class="form-group">
-            <label for="obs">Comentarios</label>
-            <textarea class="form-control" name="commentary" id="obs" rows="3">{{value.commentary}}</textarea>
-        </div>
-        <hr class="my-4">
-        <button type="submit" class="btn btn-primary btn-lg">Aceptar</button>
-        <a href="/" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Atras</a>
-    </form>
+    </div>
 </div>
-<script>
-    var repairedOption = document.getElementById('option2');
-    var consult = document.getElementById('option3');
-    var inRevision = document.getElementById('option1');
-    var repairedDate = document.getElementById('repairedDate');
-
-    repairedOption.addEventListener('click', () => {
-        repairedDate.disabled = false;
-        repairedDate.type = 'date';
-    });
-    consult.addEventListener('click', () => {
-        repairedDate.type = 'hidden';
-        repairedDate.disabled = true;
-    });
-    inRevision.addEventListener('click', () => {
-        repairedDate.type = 'hidden';
-        repairedDate.disabled = true;
-    });
-
-</script>
+{{/with}}

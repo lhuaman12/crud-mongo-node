@@ -1,0 +1,54 @@
+{{#with product}}
+<div class="container">
+    <div class="col">
+        <div class="card ">
+            <div class="card-body font-weight-bolder">
+                <h2 class="card-title text-center">Editar equipo</h2>
+                <form action="/customers/edit/{{../customerId}}/{{_id}}?_method=PUT" method="post" id="clientForm">
+                    <div class="form-group">
+                        <label for="productBrand">Marca</label>
+                        <input type="text" class="form-control" name="productBrand" id="productBrand"
+                            value="{{productBrand}}">
+                        <hr class="my-3">
+                        <label for="productModel">Modelo</label>
+                        <input type="text" class="form-control" name="productModel" id="productModel"
+                            value="{{productModel}}">
+                        <hr class="my-3">
+                        <div class="form-group">
+                            <label for="obs">Comentarios</label>
+                            <textarea class="form-control" name="productCommentary" id="obs"
+                                rows="3">{{productCommentary}}</textarea>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="option1" value="in revision"
+                                checked>
+                            <label class="form-check-label" for="option1">
+                                En revision
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="option2" value="repaired">
+                            <label class="form-check-label" for="option2">
+                                Reparado
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="option3" value="consult">
+                            <label class="form-check-label" for="option3">
+                                Consulta
+                            </label>
+                        </div>
+                        <input type="hidden" id="repairedDate" name="repairedDate" disabled>
+
+                        <hr>
+                        <button class="btn btn-primary btn-lg mt-2" type="submit">Enviar</button>
+
+                        <a href="javascript:history.back()" class="btn btn-primary btn-lg active mt-2"
+                            role="button" aria-pressed="true">Atras</a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{/with}}

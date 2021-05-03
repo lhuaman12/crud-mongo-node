@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="col">
+        <div class="card ">
+            <div class="card-body font-weight-bolder">
+                <h2 class="card-title text-center">Agregar Clientes</h2>
+                <form action="/customers/products/submit-product/{{productId}}" method="post" id="clientForm">
+                    <div class="form-group">
+                        <label for="productBrand">Marca</label>
+                        <input type="text" class="form-control" name="productBrand" id="productBrand"
+                            value="{{productBrand}}">
+                        <hr class="my-3">
+                        <label for="productModel">Modelo</label>
+                        <input type="text" class="form-control" name="productModel" id="productModel"
+                            value="{{productModel}}">
+                        <hr class="my-3">
+                        <div class="form-group">
+                            <label for="obs">Comentarios</label>
+                            <textarea class="form-control" name="productCommentary" id="obs"
+                                rows="3">{{productCommentary}}</textarea>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="option1" value="in revision"
+                                checked>
+                            <label class="form-check-label" for="option1">
+                                En revision
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="option2" value="repaired">
+                            <label class="form-check-label" for="option2">
+                                Reparado
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="option3" value="consult">
+                            <label class="form-check-label" for="exampleRadios3">
+                                Consulta
+                            </label>
+                        </div>
+                        <input type="hidden" id="repairedDate" name="repairedDate" disabled>
+
+
+                        <button class="btn-block" type="submit">Agregar Equipo</button>
+                        <a class="btn btn-secondary" href="#" role="button">Atras</a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var repairedOption = document.getElementById('option2');
+    var consult = document.getElementById('option3');
+    var inRevision = document.getElementById('option1');
+    var repairedDate = document.getElementById('repairedDate');
+
+    repairedOption.addEventListener('click', () => {
+        repairedDate.disabled = false;
+        repairedDate.type = 'date';
+    });
+    consult.addEventListener('click', () => {
+        repairedDate.type = 'hidden';
+        repairedDate.disabled = true;
+    });
+    inRevision.addEventListener('click', () => {
+        repairedDate.type = 'hidden';
+        repairedDate.disabled = true;
+    });
+</script>

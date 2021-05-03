@@ -1,9 +1,10 @@
 const express = require('express');
 const { isValidObjectId } = require('mongoose');
-const { db } = require('../models/custinfo');
+//const { db } = require('../models/custinfo');
 const router = express.Router();
 const stringControls = require('../helpers/functions');
 const Customer = require('../models/custinfo');
+const Product = require('../models/products');
 
 router.get('/customers', async (req, res) => {
     let search = await Customer.find();
@@ -19,27 +20,25 @@ router.get('/customers/new-customer', (req, res) => {
 
 router.post('/customers/submit-client', async (req, res) => {
     let errors = [];
-    const { name, lastname, adress, city, phoneNumber, productBrand, productModel, status, commentary, repairedDate } = req.body;
-    console.log(req.body);
+    const {
+        name,
+        lastname,
+        adress,
+        locality,
+        phoneNumber,
+        commentary,
+    } = req.body;
+
     if (!name)
         errors.push({ text: "Escriba un nombre" });
-
     if (!lastname)
         errors.push({ text: "Escriba un apellido" });
     if (!adress)
         errors.push({ text: "Escriba una direccion" });
-    if (!city)
+    if (!locality)
         errors.push({ text: "Escriba la localidad" });
     if (!phoneNumber || isNaN(phoneNumber))
         errors.push({ text: "Escriba un numero de telefono" });
-    if (!productBrand)
-        errors.push({ text: "Escriba la marca del producto" });
-    if (!productModel)
-        errors.push({ text: "Escriba el modelo del producto" });
-    if (status == "repaired" && repairedDate == '')
-        errors.push({ text: 'Elija una fecha de reparacion' })
-
-
     if (errors.length > 0)
         res.render('customers/new-customer', {
             errors,
@@ -47,19 +46,42 @@ router.post('/customers/submit-client', async (req, res) => {
             lastname,
             adress,
             phoneNumber,
-            status,
             commentary,
-            city,
-            productBrand,
-            productModel,
-
+            locality,
         });
     else {
-        let newCustomer = new Customer({ name, lastname, adress, city, phoneNumber, productBrand, productModel, status, commentary, repairedDate });
+        let newCustomer = new Customer({ name, lastname, adress, locality, phoneNumber, commentary });
         newCustomer = stringControls.normalizeObject(newCustomer);
-        //console.log(newCustomer);
+        const productId = newCustomer._id;
         await newCustomer.save();
+        res.render('customers/products/add-product', { productId });
+    }
+});
+
+router.post('/customers/products/submit-product/:id',async(req, res) => {
+    let errors = [];
+    let { productBrand, productModel, productCommentary, status } = req.body
+    let productId = req.params.id;
+
+    console.log(req.body);
+    if (!productBrand)
+        errors.push({ text: "Escriba una marca" });
+    if (!productModel)
+        errors.push({ text: "Escriba un modelo" });
+    if (errors.length > 0) 
+        res.render('customers/products/add-product', {
+            errors,
+            productBrand,
+            productModel,
+            productCommentary,
+            productId
+        });
+    else  {
+        let customer = await Customer.findById(productId);
+        customer.repairs.push(req.body);
+        customer.save();
         res.redirect('/');
+        
     }
 });
 
@@ -68,17 +90,41 @@ router.get('/customers/search-customers', (req, res) => {
 });
 
 router.post('/customers/submit-search', async (req, res) => {
-    req.body=stringControls.deleteBlankSpaces(req.body);
-    req.body=stringControls.normalizeObject(req.body);
+    req.body = stringControls.deleteBlankSpaces(req.body);
+    req.body = stringControls.normalizeObject(req.body);
     let search = await Customer.find(req.body);
     search = stringControls.capitalizeObjects(search);
     res.render('customers/result-search', { search });
 
 });
 
+router.get('/customers/:id/products', async (req,res)=>{
+   let customerId= req.params.id;
+    let customer = await Customer.findById(customerId);
+    let products = customer.repairs;
+    res.render('customers/products/products-list',{products,customerId});
+
+});
+router.get('/customers/edit-product/:customerId/:productId',async(req,res)=>{
+    let {customerId,productId} = req.params;
+    customer = await Customer.findById(customerId);
+    let productIndex=customer.repairs.map(object=>object._id).findIndex(id=>id==productId);
+    let product = customer.repairs[productIndex];
+    res.render('customers/products/edit-product',{product,customerId})
+});
+
+router.put('/customers/edit/:customerId/:productId',async(req,res)=>{
+    let {customerId,productId}= req.params;
+    customer = await Customer.findById(customerId);
+    let productIndex = customer.repairs.map(object=>object._id).findIndex(id=>id==productId);
+    Object.assign(customer.repairs[productIndex],req.body);
+    await customer.save({new:false});
+    res.redirect('/');
+});
+
 router.get('/customers/edit-customer/:id', async (req, res) => {
     let value = await Customer.findById(req.params.id);
-    value=stringControls.capitalizeObjects(value);
+    value = stringControls.capitalizeObjects(value);
     res.render('customers/edit-customer', { value });
 });
 
@@ -96,4 +142,14 @@ router.delete('/customers/delete-customer/:id', async (req, res) => {
     res.redirect('/');
 });
 
+router.delete('/customers/:customerId/delete-product/:productId',async(req,res)=>{
+    let {productId,customerId}=req.params;
+    customer = await Customer.findById(customerId);
+    let productIndex = customer.repairs.map(object=>object._id).findIndex(id=>id==productId);
+    customer.repairs.splice(productIndex,1);
+    await customer.save({new:false});
+    res.redirect('/');
+});
+
 module.exports = router;
+

@@ -1,31 +1,29 @@
 {{#each search}}
-<div class="container">
-    <ul class="list-group m-3">
-        <!--<li class="list-group-item">{{id}}</li>-->
-        <li class="list-group-item">{{name}}</li>
-        <li class="list-group-item">{{lastname}}</li>
-        <li class="list-group-item">{{adress}}</li>
-        <li class="list-group-item">{{city}}</li>
-        <li class="list-group-item">{{phoneNumber}}</li>
-        <li class="list-group-item">{{productBrand}}</li>
-        <li class="list-group-item">{{status}}</li>
-        <li class="list-group-item">{{commentary}}</li>
-    </ul>
-    <div class="container">
+<div class="card">
+    <div class="card-header h3 text-center">Cliente</div>
+    <div class="card-body">
+        <ul class="list-group m-3">
+            <li class="list-group-item">{{name}}</li>
+            <li class="list-group-item">{{lastname}}</li>
+            <li class="list-group-item">{{adress}}</li>
+            <li class="list-group-item">{{locality}}</li>
+            <li class="list-group-item">{{phoneNumber}}</li>
+            <li class="list-group-item">{{commentary}}</li>
+        </ul>
+    </div>
+    <div class="card-footer">
         <form method="POST" action="/customers/delete-customer/{{_id}}?_method=DELETE">
+            <a class="btn btn-info btn-lg" href="/customers/{{_id}}/products" role="button">Ver equipos</a>
+            <a class="btn btn-info btn-lg" href="/customers/edit-customer/{{_id}}" role="button">Editar cliente</a>
             <input type="hidden" name="_method" value="DELETE">
-            <button type="submit" class="btn btn-danger btn-lg" id="deleteButton" onclick="return confirm('Estas seguro de borrar el cliente?')">Eliminar</button>
-        
-            <button type="button" class="btn btn-secondary btn-lg"><a href="/customers/edit-customer/{{_id}}">Editar cliente</a></button>
-        
+            <button type="submit" class="btn btn-danger btn-lg" id="deleteButton"
+                onclick="return confirm('Estas seguro de borrar el cliente?')">Eliminar</button>
+        </form>
     </div>
 </div>
-
-</div>
-<br>
 {{/each}}
-{{#if search}}
-<a href="/customers/search-customers" class="btn btn-secondary btn-lg active" role="button"
-    aria-pressed="true">Atras</a>
 
+{{#if search}}
+<a href="javascript:history.back()" class="btn-block btn-primary btn-lg active text-center mt-2" role="button"
+    aria-pressed="true">Atras</a>
 {{/if}}

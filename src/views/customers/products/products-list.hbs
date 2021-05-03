@@ -1,0 +1,26 @@
+{{#each products}}
+<div class="card">
+    <div class="card-header h3 text-center">Equipos</div>
+    <div class="card-body">
+        <ul class="list-group m-3">
+            <li class="list-group-item">{{productBrand}}</li>
+            <li class="list-group-item">{{productModel}}</li>
+            <li class="list-group-item">{{status}}</li>
+            <li class="list-group-item">{{productDate}}</li>
+            <li class="list-group-item">{{productCommentary}}</li>
+        </ul>
+    </div>
+    <div class="card-footer">
+        <form method="POST" action="/customers/{{../customerId}}/delete-product/{{_id}}?_method=DELETE">
+            <a class="btn btn-primary btn-lg" href="/customers/edit-product/{{../customerId}}/{{_id}}" role="button">Editar Equipo</a>
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="btn btn-danger btn-lg" id="deleteButton"
+                onclick="return confirm('Estas seguro de borrar el producto?')">Eliminar</button>
+        </form>
+    </div>
+</div>
+{{/each}}
+{{#if products}}
+<a href="javascript:history.back()" class="btn btn-block btn-primary btn-lg active text-center mt-2" role="button"
+    aria-pressed="true">Atras</a>
+{{/if}}
