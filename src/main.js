@@ -32,7 +32,6 @@ app.use(express.urlencoded({extended:true}));
 app.use(morgan('dev'));
 
 
-
 // routers
 app.use(require('./routes/index'));
 app.use(require('./routes/customers'));

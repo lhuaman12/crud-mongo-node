@@ -52,3 +52,23 @@
     </div>
 </div>
 {{/with}}
+
+<script>
+    var repairedOption = document.getElementById('option2');
+    var consult = document.getElementById('option3');
+    var inRevision = document.getElementById('option1');
+    var repairedDate = document.getElementById('repairedDate');
+
+    repairedOption.addEventListener('click', () => {
+        repairedDate.disabled = false;
+        repairedDate.type = 'date';
+    });
+    consult.addEventListener('click', () => {
+        repairedDate.type = 'hidden';
+        repairedDate.disabled = true;
+    });
+    inRevision.addEventListener('click', () => {
+        repairedDate.type = 'hidden';
+        repairedDate.disabled = true;
+    });
+</script>

@@ -14,6 +14,7 @@
     <div class="card-footer">
         <form method="POST" action="/customers/delete-customer/{{_id}}?_method=DELETE">
             <a class="btn btn-info btn-lg" href="/customers/{{_id}}/products" role="button">Ver equipos</a>
+            <a class="btn btn-info btn-lg" href="/customers/{{_id}}/add-product" role="button">Agregar Equipo</a>
             <a class="btn btn-info btn-lg" href="/customers/edit-customer/{{_id}}" role="button">Editar cliente</a>
             <input type="hidden" name="_method" value="DELETE">
             <button type="submit" class="btn btn-danger btn-lg" id="deleteButton"

@@ -1,5 +1,5 @@
 const express = require('express');
-const { isValidObjectId } = require('mongoose');
+//const { isValidObjectId } = require('mongoose');
 //const { db } = require('../models/custinfo');
 const router = express.Router();
 const stringControls = require('../helpers/functions');
@@ -67,7 +67,7 @@ router.get('/customers/:customerId/add-product', (req, res) => {
 router.post('/customers/products/submit-product/:id', async (req, res) => {
     let errors = [];
     let { productBrand, productModel, productCommentary, status } = req.body
-    let productId = req.params.id;
+    let customerId = req.params.id;
 
     console.log(req.body);
     if (!productBrand)
@@ -75,15 +75,15 @@ router.post('/customers/products/submit-product/:id', async (req, res) => {
     if (!productModel)
         errors.push({ text: "Escriba un modelo" });
     if (errors.length > 0)
-        res.render('customers/products/add-product', {
+        res.render('customers/products/new-product', {
             errors,
             productBrand,
             productModel,
             productCommentary,
-            productId
+            customerId
         });
     else {
-        let customer = await Customer.findById(productId);
+        let customer = await Customer.findById(customerId);
         customer.repairs.push(req.body);
         customer.save();
         res.redirect('/');
@@ -96,7 +96,7 @@ router.get('/customers/search-customers', (req, res) => {
 });
 
 router.post('/customers/submit-search', async (req, res) => {
-    req.body = stringControls.deleteBlankSpaces(req.body);
+    req.body = stringControls.deleteBlankSpaces(req.body);  // implementar como middleware luego
     req.body = stringControls.normalizeObject(req.body);
     let search = await Customer.find(req.body);
     search = stringControls.capitalizeObjects(search);
@@ -119,7 +119,7 @@ router.get('/customers/edit-product/:customerId/:productId', async (req, res) =>
     let product = customer.repairs[productIndex];
     res.render('customers/products/edit-product', { product, customerId })
 });
-
+//TODO: controlar errores en edicion
 router.put('/customers/edit/:customerId/:productId', async (req, res) => {
     let { customerId, productId } = req.params;
     customer = await Customer.findById(customerId);
@@ -159,24 +159,3 @@ router.delete('/customers/:customerId/delete-product/:productId', async (req, re
 });
 
 module.exports = router;
-/*
-void eliminar(t_list * list, int index){
-
-    if (index == 0){ //caso index
-        if (list -> next == NULL) { // caso ultimo nodo
-            list->before->next=NULL;
-            //free(list->dato);
-            free(list);
-        }
-    
-        if (list -> before == NULL) { //caso primer nodo
-            list->next->before=NULL;
-            free(list);
-        }
-        
-    }
-    
-    eliminar(list->next,index-1);
-}
-
-*/
