@@ -4,7 +4,7 @@ const { isValidObjectId } = require('mongoose');
 const router = express.Router();
 const stringControls = require('../helpers/functions');
 const Customer = require('../models/custinfo');
-const Product = require('../models/products');
+//const Product = require('../models/products');
 
 router.get('/customers', async (req, res) => {
     let search = await Customer.find();
@@ -26,7 +26,7 @@ router.post('/customers/submit-client', async (req, res) => {
         adress,
         locality,
         phoneNumber,
-        commentary,
+        commentary
     } = req.body;
 
     if (!name)
@@ -47,18 +47,24 @@ router.post('/customers/submit-client', async (req, res) => {
             adress,
             phoneNumber,
             commentary,
-            locality,
+            locality
         });
     else {
         let newCustomer = new Customer({ name, lastname, adress, locality, phoneNumber, commentary });
         newCustomer = stringControls.normalizeObject(newCustomer);
-        const productId = newCustomer._id;
+        const customerId = newCustomer._id;
         await newCustomer.save();
-        res.render('customers/products/add-product', { productId });
+        res.render('customers/products/new-product', { customerId });
     }
 });
 
-router.post('/customers/products/submit-product/:id',async(req, res) => {
+router.get('/customers/:customerId/add-product', (req, res) => {
+    let { customerId } = req.params;
+    console.log(customerId);
+    res.render('customers/products/new-product', { customerId });
+});
+
+router.post('/customers/products/submit-product/:id', async (req, res) => {
     let errors = [];
     let { productBrand, productModel, productCommentary, status } = req.body
     let productId = req.params.id;
@@ -68,7 +74,7 @@ router.post('/customers/products/submit-product/:id',async(req, res) => {
         errors.push({ text: "Escriba una marca" });
     if (!productModel)
         errors.push({ text: "Escriba un modelo" });
-    if (errors.length > 0) 
+    if (errors.length > 0)
         res.render('customers/products/add-product', {
             errors,
             productBrand,
@@ -76,12 +82,12 @@ router.post('/customers/products/submit-product/:id',async(req, res) => {
             productCommentary,
             productId
         });
-    else  {
+    else {
         let customer = await Customer.findById(productId);
         customer.repairs.push(req.body);
         customer.save();
         res.redirect('/');
-        
+
     }
 });
 
@@ -94,31 +100,32 @@ router.post('/customers/submit-search', async (req, res) => {
     req.body = stringControls.normalizeObject(req.body);
     let search = await Customer.find(req.body);
     search = stringControls.capitalizeObjects(search);
+    console.log(search);
     res.render('customers/result-search', { search });
 
 });
 
-router.get('/customers/:id/products', async (req,res)=>{
-   let customerId= req.params.id;
+router.get('/customers/:id/products', async (req, res) => {
+    let customerId = req.params.id;
     let customer = await Customer.findById(customerId);
     let products = customer.repairs;
-    res.render('customers/products/products-list',{products,customerId});
+    res.render('customers/products/products-list', { products, customerId });
 
 });
-router.get('/customers/edit-product/:customerId/:productId',async(req,res)=>{
-    let {customerId,productId} = req.params;
+router.get('/customers/edit-product/:customerId/:productId', async (req, res) => {
+    let { customerId, productId } = req.params;
     customer = await Customer.findById(customerId);
-    let productIndex=customer.repairs.map(object=>object._id).findIndex(id=>id==productId);
+    let productIndex = customer.repairs.map(object => object._id).findIndex(id => id == productId);
     let product = customer.repairs[productIndex];
-    res.render('customers/products/edit-product',{product,customerId})
+    res.render('customers/products/edit-product', { product, customerId })
 });
 
-router.put('/customers/edit/:customerId/:productId',async(req,res)=>{
-    let {customerId,productId}= req.params;
+router.put('/customers/edit/:customerId/:productId', async (req, res) => {
+    let { customerId, productId } = req.params;
     customer = await Customer.findById(customerId);
-    let productIndex = customer.repairs.map(object=>object._id).findIndex(id=>id==productId);
-    Object.assign(customer.repairs[productIndex],req.body);
-    await customer.save({new:false});
+    let productIndex = customer.repairs.map(object => object._id).findIndex(id => id == productId);
+    Object.assign(customer.repairs[productIndex], req.body);
+    await customer.save({ new: false });
     res.redirect('/');
 });
 
@@ -142,14 +149,34 @@ router.delete('/customers/delete-customer/:id', async (req, res) => {
     res.redirect('/');
 });
 
-router.delete('/customers/:customerId/delete-product/:productId',async(req,res)=>{
-    let {productId,customerId}=req.params;
+router.delete('/customers/:customerId/delete-product/:productId', async (req, res) => {
+    let { productId, customerId } = req.params;
     customer = await Customer.findById(customerId);
-    let productIndex = customer.repairs.map(object=>object._id).findIndex(id=>id==productId);
-    customer.repairs.splice(productIndex,1);
-    await customer.save({new:false});
+    let productIndex = customer.repairs.map(object => object._id).findIndex(id => id == productId);
+    customer.repairs.splice(productIndex, 1);
+    await customer.save({ new: false });
     res.redirect('/');
 });
 
 module.exports = router;
+/*
+void eliminar(t_list * list, int index){
 
+    if (index == 0){ //caso index
+        if (list -> next == NULL) { // caso ultimo nodo
+            list->before->next=NULL;
+            //free(list->dato);
+            free(list);
+        }
+    
+        if (list -> before == NULL) { //caso primer nodo
+            list->next->before=NULL;
+            free(list);
+        }
+        
+    }
+    
+    eliminar(list->next,index-1);
+}
+
+*/

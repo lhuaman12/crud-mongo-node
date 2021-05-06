@@ -1,15 +1,12 @@
-<a href="/" class="btn btn-primary btn-lg active btn-block my-2" role="button" aria-pressed="true">Atras</a>
 {{#each search}}
 <ul class="list-group">
-    <!--<li class="list-group-item">{{id}}</li>-->
-    <li class="list-group-item">{{name}}</li>
-    <li class="list-group-item">{{lastname}}</li>
-    <li class="list-group-item">{{adress}}</li>
-    <li class="list-group-item">{{city}}</li>
-    <li class="list-group-item">{{phoneNumber}}</li>
-    <li class="list-group-item">{{productBrand}}</li>
-    <li class="list-group-item">{{status}}</li>
-    <li class="list-group-item">{{commentary}}</li>
+    <li class="list-group-item"><span class="font-weight-bold">Nombre</span>: {{name}}</li>
+    <li class="list-group-item"><span class="font-weight-bold">Apellido</span>: {{lastname}}</li>
+    <li class="list-group-item"><span class="font-weight-bold">Direccion</span>: {{adress}}</li>
+    <li class="list-group-item"><span class="font-weight-bold">Ciudad</span>: {{locality}}</li>
+    <li class="list-group-item"><span class="font-weight-bold">Telefono</span>: {{phoneNumber}}</li>
+    <li class="list-group-item"><span class="font-weight-bold">Comentarios</span>: {{commentary}}</li>
 </ul>
 <br>
 {{/each}}
+<a href="/" class="btn btn-primary btn-lg active btn-block my-2" role="button" aria-pressed="true">Atras</a>

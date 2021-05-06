@@ -1,14 +1,14 @@
 {{#each search}}
-<div class="card">
-    <div class="card-header h3 text-center">Cliente</div>
+<div class="card mb-2">
+    <div class="card-header h3 text-center font-weight-bold">Cliente</div>
     <div class="card-body">
-        <ul class="list-group m-3">
-            <li class="list-group-item">{{name}}</li>
-            <li class="list-group-item">{{lastname}}</li>
-            <li class="list-group-item">{{adress}}</li>
-            <li class="list-group-item">{{locality}}</li>
-            <li class="list-group-item">{{phoneNumber}}</li>
-            <li class="list-group-item">{{commentary}}</li>
+        <ul class="list-group">
+            <li class="list-group-item"><span class="font-weight-bold">Nombre</span>: {{name}}</li>
+            <li class="list-group-item"><span class="font-weight-bold">Apellido</span>: {{lastname}}</li>
+            <li class="list-group-item"><span class="font-weight-bold">Direccion</span>: {{adress}}</li>
+            <li class="list-group-item"><span class="font-weight-bold">Ciudad</span>: {{locality}}</li>
+            <li class="list-group-item"><span class="font-weight-bold">Telefono</span>: {{phoneNumber}}</li>
+            <li class="list-group-item"><span class="font-weight-bold">Comentarios</span>: {{commentary}}</li>
         </ul>
     </div>
     <div class="card-footer">
@@ -24,6 +24,6 @@
 {{/each}}
 
 {{#if search}}
-<a href="javascript:history.back()" class="btn-block btn-primary btn-lg active text-center mt-2" role="button"
+<a href="javascript:history.back()" class="btn-block btn-primary btn-lg active text-center mt-2 mb-5" role="button"
     aria-pressed="true">Atras</a>
 {{/if}}

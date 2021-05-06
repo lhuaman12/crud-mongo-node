@@ -2,8 +2,8 @@
     <div class="col">
         <div class="card ">
             <div class="card-body font-weight-bolder">
-                <h2 class="card-title text-center">Agregar Clientes</h2>
-                <form action="/customers/products/submit-product/{{productId}}" method="post" id="clientForm">
+                <h2 class="card-title text-center">Agregar equipo</h2>
+                <form action="/customers/products/submit-product/{{customerId}}" method="post" id="clientForm">
                     <div class="form-group">
                         <label for="productBrand">Marca</label>
                         <input type="text" class="form-control" name="productBrand" id="productBrand"
@@ -38,10 +38,9 @@
                             </label>
                         </div>
                         <input type="hidden" id="repairedDate" name="repairedDate" disabled>
-
-
-                        <button class="btn-block" type="submit">Agregar Equipo</button>
-                        <a class="btn btn-secondary" href="#" role="button">Atras</a>
+                        <hr>
+                        <button type="submit" class="btn btn-primary btn-lg">Agregar Equipo</button>
+                        <a class="btn btn-secondary btn-lg" href="/" role="button">Atras</a>
 
                 </form>
             </div>

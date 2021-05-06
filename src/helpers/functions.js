@@ -2,10 +2,13 @@ var stringControls = {};
 stringControls.capitalizeObjects = function (stringObjects) { // takes an object or an array of objects then capitalizes string attributes
     var result;
     if (Array.isArray(stringObjects)) {
+
         result = stringObjects.map(value => {
             for (const key in value) {
-                if (typeof (value[key]) == "string" && value[key].lenght>0)
+                if (typeof (value[key]) == "string" && value[key].length > 0) 
                     value[key] = value[key][0].toUpperCase() + value[key].substring(1);
+
+                
             }
             return value;
         });
@@ -14,7 +17,7 @@ stringControls.capitalizeObjects = function (stringObjects) { // takes an object
 
         result = stringObjects;
         for (const key in result) {
-            if (typeof (result[key]) == "string")
+            if (typeof (result[key]) == "string" && result[key].length > 0)
                 result[key] = result[key][0].toUpperCase() + result[key].substring(1);
         }
 
@@ -38,7 +41,11 @@ stringControls.deleteBlankSpaces = function (value) {
     return value;
 }
 
-//console.log(stringControls.({name:"luiASDs",lastname:"ASDhuaman"}));
-//const test = [{ name: "luis", lastname: "jerga" }, { name: "lucas", lastname: "huara" }];
-//const test = {name:"luis"};
 module.exports = stringControls;
+
+
+/* some tests
+console.log(stringControls.({name:"luiASDs",lastname:"ASDhuaman"}));
+const test = [{ name: "luis", lastname: "jerga" }, { name: "lucas", lastname: "huara" }];
+const test = {name:"luis"};
+*/

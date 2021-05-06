@@ -1,13 +1,13 @@
 {{#each products}}
-<div class="card">
-    <div class="card-header h3 text-center">Equipos</div>
-    <div class="card-body">
+<div class="card mb-3">
+    <div class="card-header h3 text-center font-weight-bold">Equipo</div>
+    <div class="card-body font-italic">
         <ul class="list-group m-3">
-            <li class="list-group-item">{{productBrand}}</li>
-            <li class="list-group-item">{{productModel}}</li>
-            <li class="list-group-item">{{status}}</li>
-            <li class="list-group-item">{{productDate}}</li>
-            <li class="list-group-item">{{productCommentary}}</li>
+            <li class="list-group-item"><span class="font-weight-bold">Marca</span>: {{productBrand}}</li>   
+            <li class="list-group-item"><span class="font-weight-bold">Modelo</span>: {{productModel}}</li>
+            <li class="list-group-item"><span class="font-weight-bold">Estado de reparacion: </span>{{status}}</li>
+            <li class="list-group-item"><span class="font-weight-bold">Fecha de reparacion: </span>{{productDate}}</li>
+            <li class="list-group-item"><span class="font-weight-bold">Comentarios del producto: </span>{{productCommentary}}</li>
         </ul>
     </div>
     <div class="card-footer">
@@ -20,7 +20,7 @@
     </div>
 </div>
 {{/each}}
-{{#if products}}
-<a href="javascript:history.back()" class="btn btn-block btn-primary btn-lg active text-center mt-2" role="button"
+
+<a class="btn btn-primary btn-lg mt-3 mb-5 active" href="/customers/{{customerId}}/add-product" role="button">Agregar Equipo</a>
+<a href="javascript:history.back()" class="btn btn-primary btn-lg text-center mt-3 mb-5 active" role="button"
     aria-pressed="true">Atras</a>
-{{/if}}
