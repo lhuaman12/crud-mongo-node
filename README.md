@@ -10,7 +10,7 @@ Este es un ejemplo de CRUD
 - Nodejs(con express)
 - MongoDB
 
-Actualmente se está depurando y deployado a una página heroku para su posterior ejemplo en este repositorio.
+Actualmente se está depurando,agregando funcionaliades como login y para después deployar este ejemplo.
 
 ## Modo de uso:
 - Instalar Node,mongo
