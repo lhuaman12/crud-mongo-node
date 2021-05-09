@@ -2,11 +2,11 @@
 
 Este es un ejemplo de CRUD
 
-##Front
+## Front
 -HTML
 -CSS
 -Javascript
-##Back
+## Back
 -Nodejs (con express)
 -MongoDB
 
