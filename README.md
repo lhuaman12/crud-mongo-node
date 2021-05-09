@@ -7,7 +7,7 @@ Este es un ejemplo de CRUD
 -CSS
 -Javascript
 ## Back
--Nodejs (con express)
+-Nodejs(con express)
 -MongoDB
 
 Actualmente se está depurando y deployado a una página heroku para su posterior ejemplo en este repositorio.
