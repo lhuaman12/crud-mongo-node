@@ -1,6 +1,6 @@
 # Crud-mongo-node
 
-Este es un ejemplo de CRUD
+Este es un ejemplo de CRUD con renderizado en el servidor (motor de plantillas)
 
 ## Front
 - HTML
