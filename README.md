@@ -1,13 +1,12 @@
-# Crud-mongo-node
+# CRUD basado en clientes y pedidos  
 
-Este es un ejemplo de CRUD con renderizado en el servidor (motor de plantillas)
-
-## Front
-- HTML
-- CSS
-- Boostrap 4
-- Javascript
-## Back
-- Nodejs
-- Express
-- MongoDB
+## Tecnologías utilizadas: 🛰
+### Front
+- HTML ✔
+- CSS ✔
+- Boostrap 4 ✔
+- Javascript ✔
+### Back
+- Nodejs ✔
+- Express ✔
+- MongoDB ✔
